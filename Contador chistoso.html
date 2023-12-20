@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuenta Regresiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #countdown {
+      font-size: 24px;
+      color: #555;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    #countdown div {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>¡La sorpresa llega en:</h1>
+  <div id="countdown"></div>
+
+  <script>
+    // Configuración de la fecha de llegada
+    const arrivalDate = new Date('2023-12-26T00:00:00').getTime();
+
+    // Actualización de la cuenta regresiva cada segundo
+    const x = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = arrivalDate - now;
+
+      // Cálculos para días, horas, minutos y segundos
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Mostrar la cuenta regresiva en la página
+      document.getElementById('countdown').innerHTML = `
+        <div>${days} días</div>
+        <div>${hours} horas</div>
+        <div>${minutes} minutos</div>
+        <div>${seconds} segundos</div>
+      `;
+
+      // Si la cuenta regresiva ha terminado, mostrar un mensaje
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById('countdown').innerHTML = "¡La sorpresa ha llegado!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
